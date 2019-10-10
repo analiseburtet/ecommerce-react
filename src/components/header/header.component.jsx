@@ -5,6 +5,9 @@ import { ReactComponent as Logo} from "../../assets/crown.svg";
 import { auth } from "../../firebase/firebase.utils";
 import { connect } from 'react-redux'
 import CartDropdown from "../cart-dropdown/cart-dropdown.component"
+import { createStructureSelector } from 'reselect'
+import { selectCurrentUser } from '../../redux/user/user.selectors'
+import { selectCartHidden } from '../../redux/cart/carts.selectors'
 import CartIcon from '../cart-icon/cart-icon.component'
 const Header = ({ currentUser , hidden}) => (
     <div className="header">
@@ -33,9 +36,9 @@ const Header = ({ currentUser , hidden}) => (
     </div>
 )
 
-const mapStateToProps = ({user:{currentUser}, cart: {hidden}}) => ({
-    currentUser,
-    hidden
+const mapStateToProps = createStructureSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
 });
 
 export default connect(mapStateToProps)(Header);
